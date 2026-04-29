@@ -1,0 +1,11 @@
+Best val accuracy: 92.8%
+
+              precision    recall  f1-score   support
+
+           0      0.900     0.939     0.919     31118
+           1      0.941     0.920     0.930     14917
+           2      0.941     0.924     0.933     53805
+
+    accuracy                          0.928     99840
+   macro avg      0.928     0.928     0.927     99840
+weighted avg      0.929     0.928     0.928     99840

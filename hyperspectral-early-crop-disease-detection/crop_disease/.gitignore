@@ -1,0 +1,14 @@
+*.npy
+*.h5
+*.pt
+*.pth
+*.mat
+*.csv
+*.zip
+data/
+dataset/
+results/
+__pycache__/
+*.pyc
+venv/
+.env

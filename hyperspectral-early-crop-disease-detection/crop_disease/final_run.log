@@ -1,0 +1,128 @@
+﻿[OK] GPU DETECTED: 1 GPU(s) - VRAM limited to 3 GB.
+=========================================================
+   HYPERSPECTRAL CROP DISEASE DETECTION ΓÇö HybridSN       
+=========================================================
+
+[STEP 1/6] Loading raw hyperspectral data...
+   Γ£ö Found X_pixels.npy and Y_labels.npy - skipping Step 1.
+
+[STEP 2/6] Extracting spatial patches with PCA...
+   Γ£ö Patches already exist ΓÇö skipping extraction.
+   (Delete data/X_patches.npy to force re-extraction)
+
+[STEP 3/6] Training HybridSN model...
+=========================================================
+   HybridSN - VRAM-SAFE TRAINING (3.4 GB GPU)             
+=========================================================
+
+[STEP 1] Loading patches...
+   X shape : (399999, 7, 7, 90)   (3.53 GB in CPU RAM)
+   Labels  : [1. 2. 3.]
+   Label map : {1.0: 0, 2.0: 1, 3.0: 2}
+   Γ£ö Saved ΓåÆ models/label_map.json
+   Class weights : {0: 1.4331950296672114, 1: 0.9444920627049848, 2: 0.8041894353369763}
+
+   Train : 319,999  |  Test : 80,000
+   Train RAM : 2.82 GB  (CPU, float16)
+
+   Building streaming datasets (batch_size=1)...
+   Steps per epoch : 319999
+   Val steps       : 80000
+
+[STEP 2] Building HybridSN...
+Model: "model"
+__________________________________________________________________________________________________
+ Layer (type)                   Output Shape         Param #     Connected to                     
+==================================================================================================
+ input_1 (InputLayer)           [(None, 7, 7, 90, 1  0           []                               
+                                )]                                                                
+                                                                                                  
+ conv3d (Conv3D)                (None, 7, 7, 90, 8)  512         ['input_1[0][0]']                
+                                                                                                  
+ batch_normalization (BatchNorm  (None, 7, 7, 90, 8)  32         ['conv3d[0][0]']                 
+ alization)                                                                                       
+                                                                                                  
+ conv3d_1 (Conv3D)              (None, 7, 7, 90, 16  5776        ['batch_normalization[0][0]']    
+                                )                                                                 
+                                                                                                  
+ batch_normalization_1 (BatchNo  (None, 7, 7, 90, 16  64         ['conv3d_1[0][0]']               
+ rmalization)                   )                                                                 
+                                                                                                  
+ conv3d_2 (Conv3D)              (None, 7, 7, 90, 32  13856       ['batch_normalization_1[0][0]']  
+                                )                                                                 
+                                                                                                  
+ batch_normalization_2 (BatchNo  (None, 7, 7, 90, 32  128        ['conv3d_2[0][0]']               
+ rmalization)                   )                                                                 
+                                                                                                  
+ reshape (Reshape)              (None, 7, 7, 2880)   0           ['batch_normalization_2[0][0]']  
+                                                                                                  
+ conv2d (Conv2D)                (None, 7, 7, 64)     1658944     ['reshape[0][0]']                
+                                                                                                  
+ batch_normalization_3 (BatchNo  (None, 7, 7, 64)    256         ['conv2d[0][0]']                 
+ rmalization)                                                                                     
+                                                                                                  
+ global_average_pooling2d (Glob  (None, 64)          0           ['batch_normalization_3[0][0]']  
+ alAveragePooling2D)                                                                              
+                                                                                                  
+ dense (Dense)                  (None, 8)            520         ['global_average_pooling2d[0][0]'
+                                                                 ]                                
+                                                                                                  
+ dense_1 (Dense)                (None, 64)           576         ['dense[0][0]']                  
+                                                                                                  
+ reshape_1 (Reshape)            (None, 1, 1, 64)     0           ['dense_1[0][0]']                
+                                                                                                  
+ multiply (Multiply)            (None, 7, 7, 64)     0           ['batch_normalization_3[0][0]',  
+                                                                  'reshape_1[0][0]']              
+                                                                                                  
+ conv2d_1 (Conv2D)              (None, 7, 7, 64)     36928       ['multiply[0][0]']               
+                                                                                                  
+ batch_normalization_4 (BatchNo  (None, 7, 7, 64)    256         ['conv2d_1[0][0]']               
+ rmalization)                                                                                     
+                                                                                                  
+ flatten (Flatten)              (None, 3136)         0           ['batch_normalization_4[0][0]']  
+                                                                                                  
+ dense_2 (Dense)                (None, 256)          803072      ['flatten[0][0]']                
+                                                                                                  
+ dropout (Dropout)              (None, 256)          0           ['dense_2[0][0]']                
+                                                                                                  
+ dense_3 (Dense)                (None, 128)          32896       ['dropout[0][0]']                
+                                                                                                  
+ dropout_1 (Dropout)            (None, 128)          0           ['dense_3[0][0]']                
+                                                                                                  
+ dense_4 (Dense)                (None, 3)            387         ['dropout_1[0][0]']              
+                                                                                                  
+==================================================================================================
+Total params: 2,554,203
+Trainable params: 2,553,835
+Non-trainable params: 368
+__________________________________________________________________________________________________
+
+[STEP 3] Training...
+   Batches stream CPU -> GPU one at a time.
+
+Epoch 1/100
+d:\Projects\crop_diseas
+e\gpu_env\Scripts\pytho
+n.exe : Could not 
+locate zlibwapi.dll. 
+Please make sure it is 
+in your library path!
+At line:1 char:32
++ ... NG='utf-8'; d:\Pr
+ojects\crop_disease\gpu
+_env\Scripts\python.exe
+ -u ma ...
++                 ~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (Could not loc   
+ at...r library pat    
+h!:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 

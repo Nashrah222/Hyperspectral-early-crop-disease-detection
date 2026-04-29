@@ -1,0 +1,12 @@
+gpu_env/
+venv/
+env/
+
+__pycache__/
+*.pyc
+*.pyo
+
+node_modules/
+
+.DS_Store
+gpu_env/ 
